@@ -1,6 +1,7 @@
 package com.is.cole.services.colectuber;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,7 @@ public class ColectuberServiceImpl implements IColectuberService{
 
 		List<ColectivoUbicacionDto> listaDtos= colectivoUbicacionDao.findAll().stream()
 		.map(colectivoUbicacion->parseBeanToDtoColectivoUbicacion(colectivoUbicacion))
-		.toList();
+		.collect(Collectors.toList());
 		
 		dtos.setListaColectivoUbicaciones(listaDtos);
 		
