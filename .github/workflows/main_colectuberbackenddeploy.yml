@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'colectuberBackendDeploy'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_3393F9CFCCC04FFEA0E3A5CA10333BCE }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_36637B7B07B34DC5B3D1671D83E80356 }}
           package: '*.jar'
