@@ -11,6 +11,8 @@ import javax.persistence.Table;
 @Table(name = "usuarios")
 public class Usuarios implements BaseBean {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable = false, unique = true)
@@ -22,7 +24,7 @@ public class Usuarios implements BaseBean {
 	
 	private String correo;
 	
-	private Integer password;
+	private String password;
 
 	public String getNombre() {
 		return nombre;
@@ -48,12 +50,20 @@ public class Usuarios implements BaseBean {
 		this.correo = correo;
 	}
 
-	public Integer getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(Integer password) {
+	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	
 	

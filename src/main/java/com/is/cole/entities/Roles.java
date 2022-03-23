@@ -11,6 +11,8 @@ import javax.persistence.Table;
 @Table(name = "roles")
 public class Roles implements BaseBean {
 
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable = false, unique = true)
@@ -19,6 +21,16 @@ public class Roles implements BaseBean {
 	private String nombre;
 	
 	private String description;
+
+	
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getNombre() {
 		return nombre;

@@ -9,24 +9,28 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 @Entity
-@Table(name="lineas_recorridos")
-public class LineaRecorridos implements BaseBean{
-	private static final long serialVersionUID = 1L;
+@Table(name = "rolesUsuario")
+public class RoleUsuario implements BaseBean {
 	
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(nullable = false, unique= true)
 	private Integer id;
 	
 	@ManyToOne
-	@JoinColumn(name="linea_id",referencedColumnName="id")
-	private Linea linea;
+	@JoinColumn(name = "cliente_id", referencedColumnName = "id")
+	private Usuarios usuarios;
 	
 	@ManyToOne
-	@JoinColumn(name="recorrido_id",referencedColumnName="id")
-	private Recorrido recorrido;
+	@JoinColumn(name = "role_id", referencedColumnName = "id")
+	private Roles roles;
 
+	
+	
 	public Integer getId() {
 		return id;
 	}
@@ -35,22 +39,21 @@ public class LineaRecorridos implements BaseBean{
 		this.id = id;
 	}
 
-	public Linea getLinea() {
-		return linea;
+	public Usuarios getUsuarios() {
+		return usuarios;
 	}
 
-	public void setLinea(Linea linea) {
-		this.linea = linea;
+	public void setUsuarios(Usuarios usuarios) {
+		this.usuarios = usuarios;
 	}
 
-	public Recorrido getRecorrido() {
-		return recorrido;
+	public Roles getRoles() {
+		return roles;
 	}
 
-	public void setRecorrido(Recorrido recorrido) {
-		this.recorrido = recorrido;
+	public void setRoles(Roles roles) {
+		this.roles = roles;
 	}
-	
 	
 	
 }
