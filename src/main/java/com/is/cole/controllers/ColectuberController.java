@@ -38,7 +38,7 @@ public class ColectuberController {
 	public ResponseEntity<?> getColectivosUbicacion(){
 		try {
 			ColectivoUbicacionResult dtos = colectuberService.getColectivosUbicacion();
-			return ResponseEntity.status(HttpStatus.FOUND).body(dtos);
+			return ResponseEntity.status(HttpStatus.OK).body(dtos);
 		}catch(Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
