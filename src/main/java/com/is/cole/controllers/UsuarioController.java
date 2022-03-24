@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.is.cole.dtos.Usuarios.RoleDto;
+import com.is.cole.dtos.Usuarios.RoleResult;
 import com.is.cole.dtos.Usuarios.UsuarioDto;
 import com.is.cole.services.usuarios.IUsuariosService;
 
@@ -20,6 +21,8 @@ public class UsuarioController {
 
 	@Autowired
 	private IUsuariosService usuariosService;
+	
+	/****************************** Usuarios *************************************/
 	
 	@PostMapping
 	public ResponseEntity<?> postUsuario(@RequestBody UsuarioDto dto){
@@ -49,6 +52,86 @@ public class UsuarioController {
 			usuariosService.deleteUsuario(id);
 			return ResponseEntity.status(HttpStatus.OK).build();
 		}catch(Exception e){
+			System.err.print(e);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	/*************************** Roles ******************************************/
+
+	@PostMapping("/roles")
+	public ResponseEntity<?> create(@RequestBody RoleDto role){
+		try {
+			RoleDto dto = usuariosService.saveRole(role);
+			return ResponseEntity.status(HttpStatus.CREATED).body(dto);
+		}catch(Exception e) {
+			System.err.print(e);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	@GetMapping("/roles/{id}")
+	public ResponseEntity<?> getRole(@PathVariable("id") Integer id){
+		try {
+			RoleDto dto= usuariosService.getRole(id);
+			return ResponseEntity.status(HttpStatus.OK).body(dto);
+		}catch(Exception e) {
+			System.err.print(e);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	@GetMapping("/roles")
+	public ResponseEntity<?> getAllRole(){
+		try {
+			RoleResult dtos= usuariosService.getAllRole();
+			return ResponseEntity.status(HttpStatus.OK).body(dtos);
+		}catch(Exception e) {
+			System.err.print(e);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	@DeleteMapping("/roles/{id}")
+	public ResponseEntity<?> delete(@PathVariable("id") Integer id){
+		try {
+			usuariosService.deleteRole(id);
+			return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+		}catch(Exception e) {
+			System.err.print(e);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	@PostMapping("/rol_usuario/{user_id}")
+	public ResponseEntity<?> agregarRolAUsuario(@PathVariable("user_id") Integer userId, @RequestBody RoleDto dto){
+		try {
+			if(dto.getId() != null) {
+				usuariosService.agregarRoleAUsuario(userId, dto.getId());
+				return ResponseEntity.status(HttpStatus.OK).build();
+			}else if(dto.getNombre() != null) {
+				usuariosService.agregarRoleAUsuario(userId, dto.getNombre());
+				return ResponseEntity.status(HttpStatus.OK).build();
+			}
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}catch(Exception e) {
+			System.err.print(e);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+	}
+	
+	@DeleteMapping("/rol_usuario/{user_id}")
+	public ResponseEntity<?> sacarRolAUsuario(@PathVariable("user_id") Integer userId,@RequestBody RoleDto dto){
+		try {
+			if(dto.getId() != null) {
+				usuariosService.quitarRoleAUsuario(userId,dto.getId());
+				return ResponseEntity.status(HttpStatus.OK).build();
+			}else if(dto.getNombre() != null) {
+				usuariosService.quitarRoleAUsuario(userId, dto.getNombre());
+				return ResponseEntity.status(HttpStatus.OK).build();
+			}
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}catch(Exception e) {
 			System.err.print(e);
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 		}

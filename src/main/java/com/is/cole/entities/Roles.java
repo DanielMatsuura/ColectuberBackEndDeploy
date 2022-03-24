@@ -18,6 +18,7 @@ public class Roles implements BaseBean {
 	@Column(nullable = false, unique = true)
 	private Integer id;
 	
+	@Column(nullable = false, unique = true)
 	private String nombre;
 	
 	private String description;

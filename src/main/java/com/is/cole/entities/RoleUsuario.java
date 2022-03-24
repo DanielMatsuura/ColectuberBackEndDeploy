@@ -22,7 +22,7 @@ public class RoleUsuario implements BaseBean {
 	private Integer id;
 	
 	@ManyToOne
-	@JoinColumn(name = "cliente_id", referencedColumnName = "id")
+	@JoinColumn(name = "usuario_id", referencedColumnName = "id")
 	private Usuarios usuarios;
 	
 	@ManyToOne
