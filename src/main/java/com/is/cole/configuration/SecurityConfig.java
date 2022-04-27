@@ -14,6 +14,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWriter.ReferrerPolicy;
+
 import com.is.cole.filter.JwtFilter;
 import com.is.cole.services.userDetails.CustomUserDetailsService;
 
@@ -70,7 +72,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					+ "manifest-src 'self';"
 					+ "media-src 'self';"
 					+ "report-uri https://626941b31e8c404e5a8b9dc6.endpoint.csper.io/?v=3;"
-					+ "worker-src 'none';");
+					+ "worker-src 'none';")
+			.and()
+			.referrerPolicy(ReferrerPolicy.STRICT_ORIGIN);
 	}
 
 }
