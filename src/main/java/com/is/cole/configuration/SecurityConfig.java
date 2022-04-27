@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 			.contentSecurityPolicy("default-src 'self';"
 					+ "script-src 'report-sample' 'self';"
-					+ "style-src 'report-sample' 'self' 'unsafe-inline';"
+					+ "style-src 'report-sample' 'self';"
 					+ "object-src 'none';"
 					+ "base-uri 'self';"
 					+ "connect-src 'self';"
