@@ -74,7 +74,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					+ "report-uri https://626941b31e8c404e5a8b9dc6.endpoint.csper.io/?v=3;"
 					+ "worker-src 'none';")
 			.and()
-			.referrerPolicy(ReferrerPolicy.STRICT_ORIGIN);
+			.referrerPolicy(ReferrerPolicy.STRICT_ORIGIN)
+			.and()
+			.permissionsPolicy(permissions -> permissions
+					.policy("fullscreen=(); "
+							+ "geolocation=()"
+							+ "camera=()"));
 	}
 
 }
