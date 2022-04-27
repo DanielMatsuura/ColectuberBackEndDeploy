@@ -8,9 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "colectivos")
+@Table(name = "colectivos",uniqueConstraints =@UniqueConstraint(name="uk_numero",columnNames = {"numero_colectivo"}))
 public class Colectivo implements BaseBean{
 
 	private static final long serialVersionUID = 1L;
@@ -28,11 +29,10 @@ public class Colectivo implements BaseBean{
 	@JoinColumn(name="linea_id",referencedColumnName="id")
 	private Linea lineaColectivo;
 	
-	
+	@Column(name="numero_colectivo")
 	private String numeroColectivo;
-	//Falta relacionar con usuario
-
-
+	
+	
 	public Integer getId() {
 		return id;
 	}

@@ -6,9 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="lineas")
+@Table(name="lineas",uniqueConstraints=@UniqueConstraint(name="uk_numero", columnNames = {"numero"}))
 public class Linea implements BaseBean{
 
 	private static final long serialVersionUID = 1L;
@@ -18,6 +19,7 @@ public class Linea implements BaseBean{
 	@Column(nullable = false, unique= true)
 	private Integer id;
 
+	@Column(name="numero")
 	private String numero;
 	
 

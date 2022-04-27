@@ -1,5 +1,7 @@
 package com.is.cole.dtos.Usuarios;
 
+import java.util.List;
+
 import com.is.cole.dtos.BaseDto;
 
 public class UsuarioDto extends BaseDto{
@@ -11,8 +13,14 @@ public class UsuarioDto extends BaseDto{
 	private String apellido;
 	private String correo_electronico;
 	private String password;
+	private List<RoleDto> roleList;
 	
-	
+	public List<RoleDto> getRoleList() {
+		return roleList;
+	}
+	public void setRoleList(List<RoleDto> roleList) {
+		this.roleList = roleList;
+	}
 	public Integer getId() {
 		return id;
 	}
