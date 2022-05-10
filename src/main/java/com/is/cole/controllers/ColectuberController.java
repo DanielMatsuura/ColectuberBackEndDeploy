@@ -20,13 +20,19 @@ import com.is.cole.dtos.colectuber.InitialViajeDto;
 import com.is.cole.dtos.colectuber.UsuarioChoferDto;
 import com.is.cole.services.colectuber.IColectuberService;
 
+/**
+ * Controlador para los servicios principales tanto para la web y la app
+ * @author Colectuber 
+ */
 @RestController
 @RequestMapping("/api/colectuber")
 public class ColectuberController {
-
-	@Autowired
-	private IColectuberService colectuberService;
-
+	
+	/**
+	 * Save y Update del ubicacion de un colectivo
+	 * @param dto
+	 * @return
+	 */
 	@Secured("ROLE_CHOFER")
 	@PostMapping("/ubicacion")
 	public ResponseEntity<?> postColectivoUbicacion(@RequestBody ColectivoUbicacionDto dto) {
@@ -40,7 +46,10 @@ public class ColectuberController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
+	/**
+	 * Se obtiene todas las ubicaciones de los colectivos
+	 * @return
+	 */
 	@GetMapping("/ubicaciones")
 	@CrossOrigin
 	public ResponseEntity<?> getColectivosUbicacion() {
@@ -53,7 +62,11 @@ public class ColectuberController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
+	/**
+	 * Se obtiene los datos iniciales de la aplicacion web: colectivos, colectivos ubicacion,
+	 * recorridos y paradas
+	 * @return
+	 */
 	@GetMapping("/get-data")
 	public ResponseEntity<?> getInitialData() {
 		try {
@@ -64,7 +77,10 @@ public class ColectuberController {
 		}
 	}
 
-
+	/**
+	 * Se obtiene el chofer por medio de su token de autenticado
+	 * @return
+	 */
 	@Secured("ROLE_CHOFER")
 	@GetMapping("/get-chofer")
 	public ResponseEntity<?> getChofer() {
@@ -78,7 +94,11 @@ public class ColectuberController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
+	
+	/**
+	 * Se obtiene el viaje de un chofer por medio de su token de autenticado
+	 * @return
+	 */
 	@Secured("ROLE_CHOFER")
 	@GetMapping("/get-viaje")
 	public ResponseEntity<?> getViaje() {
@@ -92,5 +112,8 @@ public class ColectuberController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+	
+	@Autowired
+	private IColectuberService colectuberService;
 
 }

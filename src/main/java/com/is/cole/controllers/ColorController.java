@@ -13,24 +13,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.is.cole.dtos.Result;
-import com.is.cole.dtos.colectivos.EmpresaDeColectivosDto;
-import com.is.cole.services.empresaColectivos.IEmpresaColectivosService;
+import com.is.cole.dtos.colores.ColorDto;
+import com.is.cole.services.colores.IColorService;
 
 @RestController
-@RequestMapping("/api/empresas_colectivos")
+@RequestMapping("/api/colores")
 @Secured("ROLE_ADMIN")
-public class EmpresaDeColectivosController {
+public class ColorController {
 
 	/**
-	 * Agrega una nueva empresa de Colectivo
+	 * Agrega un color nuevo
 	 * @param dto
 	 * @return
 	 */
 	@PostMapping
-	public ResponseEntity<?> saveEmpresaColectivo(@RequestBody EmpresaDeColectivosDto dto) {
+	public ResponseEntity<?> postColor(@RequestBody ColorDto dto) {
 		try {
-			EmpresaDeColectivosDto dtoGuardado = empresaService.saveEmpresaColectivo(dto);
+			ColorDto dtoGuardado = colorService.saveColor(dto);
 			return ResponseEntity.status(HttpStatus.OK).body(dtoGuardado);
 		} catch (IllegalArgumentException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -38,49 +39,49 @@ public class EmpresaDeColectivosController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
+	
 	/**
-	 * Obtiene una nueva empresa de colectivo por medio de un identificador
-	 * @param empresaId
+	 * Obtiene un color por medio de un identificador
+	 * @param id
 	 * @return
 	 */
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getEmpresaColectivo(@PathVariable("id") Integer empresaId) {
+	public ResponseEntity<?> getColor(@PathVariable(value = "id") Integer id){
 		try {
-			EmpresaDeColectivosDto dtoObtenido = empresaService.getEmpresaColectivo(empresaId);
+			ColorDto dtoObtenido = colorService.getColorById(id);
 			return ResponseEntity.status(HttpStatus.OK).body(dtoObtenido);
-		} catch (EntityNotFoundException e) {
+		}catch (EntityNotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
+	
 	/**
-	 * Obtiene todas las empresas de colectivo
+	 * Obtiene todos los colores
 	 * @return
 	 */
 	@GetMapping
-	public ResponseEntity<?> getAllEmpresaColectivo() {
+	public ResponseEntity<?> getAllColores(){
 		try {
-			Result<EmpresaDeColectivosDto> dtos = empresaService.getAllEmpresaColectivo();
+			Result<ColorDto> dtos = colorService.getAllColors();
 			return ResponseEntity.status(HttpStatus.OK).body(dtos);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
+	
 	/**
-	 * Elimina una empresa de colectivo por medio de un identificador
-	 * @param empresaId
+	 * Elimina un color por medio de un identificador
+	 * @param id
 	 * @return
 	 */
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteEmpresaColectivo(@PathVariable("id") Integer empresaId) {
+	public ResponseEntity<?> deleteColor(@PathVariable(value = "id") Integer id){
 		try {
-			empresaService.deleteEmpresaColectivo(empresaId);
+			colorService.deleteById(id);
 			return ResponseEntity.status(HttpStatus.OK).build();
-		} catch (EntityNotFoundException e) {
+		}catch (EntityNotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -88,6 +89,7 @@ public class EmpresaDeColectivosController {
 	}
 	
 	@Autowired
-	private IEmpresaColectivosService empresaService;
-
+	private IColorService colorService;
+	
+	
 }

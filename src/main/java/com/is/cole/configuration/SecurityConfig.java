@@ -19,15 +19,14 @@ import org.springframework.security.web.header.writers.ReferrerPolicyHeaderWrite
 import com.is.cole.filter.JwtFilter;
 import com.is.cole.services.userDetails.CustomUserDetailsService;
 
+/**
+ * Configuracion para la autenticacion, autorizacion y security headers de la aplicacion
+ * @author Colectuber
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-	@Autowired
-	private CustomUserDetailsService userDetailsService;
-	@Autowired
-	private JwtFilter filter;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -45,6 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return super.authenticationManagerBean();
 	}
 
+	/**
+	 * Configuracion de los security headers
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http = http.csrf().disable();
@@ -77,9 +79,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.referrerPolicy(ReferrerPolicy.STRICT_ORIGIN)
 			.and()
 			.permissionsPolicy(permissions -> permissions
-					.policy("fullscreen=(); "
-							+ "geolocation=()"
+					.policy("fullscreen=(), "
+							+ "geolocation=(),"
 							+ "camera=()"));
 	}
+	
+	@Autowired
+	private CustomUserDetailsService userDetailsService;
+	@Autowired
+	private JwtFilter filter;
+
 
 }

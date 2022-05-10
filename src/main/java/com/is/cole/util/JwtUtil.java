@@ -12,10 +12,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-/*
+/**
  * Codigo utilizado del tutorial: https://www.youtube.com/watch?v=rBNOc4ymd1E
- * 
- * */
+ * @author tutorial
+ * Servicio para la manipulacion de los tokens para la authentication and authorization
+ */
 @Service
 public class JwtUtil {
 	private String secret = "javatechie";
@@ -40,7 +41,7 @@ public class JwtUtil {
 	private Boolean isTokenExpired(String token) {
 		return extractExpiration(token).before(new Date());
 	}
-
+	
 	public String generateToken(String username) {
 		Map<String, Object> claims = new HashMap<String, Object>();
 		return createToken(claims, username);

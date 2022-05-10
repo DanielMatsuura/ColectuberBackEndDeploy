@@ -13,20 +13,17 @@ import com.is.cole.dtos.Result;
 import com.is.cole.dtos.Viajes.ViajeDto;
 import com.is.cole.entities.Viaje;
 
+/**
+ * Servicio para manipular los viajes de colectivos de algun chofer
+ * @author Colectuber
+ */
 @Service
 public class ViajesServiceImpl implements IViajesService {
 
-	@Autowired
-	private IViajeDao viajeDao;
-	@Autowired
-	private IUserDao usuarioDao;
-	@Autowired
-	private IColectivoDao colectivoDao;
-	@Autowired
-	private IRecorridoDao recorridoDao;
-	
 	/********************** Normal CRUDs **********************/
-
+	//En los normal cruds solo se utiliza el dao para realizar la funcion necesaria el cual
+	//recibe el bean parseado de dto y si es necesario la funcion devuelve un dto parseado de bean
+	
 	@Override
 	@Transactional
 	public ViajeDto saveViaje(ViajeDto dto) {
@@ -49,7 +46,7 @@ public class ViajesServiceImpl implements IViajesService {
 
 	@Override
 	@Transactional
-	public Result<ViajeDto> getAllViaje() {
+	public Result<ViajeDto> getAllViajes() {
 		Result<ViajeDto> resultViaje= new Result<>();
 		
 		List<ViajeDto> dtosObtenido = (viajeDao.findAll()
@@ -60,7 +57,10 @@ public class ViajesServiceImpl implements IViajesService {
 	}
 
 	/********************** Special functions **********************/
-
+	
+	/**
+	 * Se obtiene un viaje por chofer id
+	 */
 	@Override
 	@Transactional
 	public ViajeDto getByChoferIdViaje(Integer id) {
@@ -90,5 +90,15 @@ public class ViajesServiceImpl implements IViajesService {
 		bean.setUsuario(usuarioDao.getById(dto.getChofer_id()));
 		return bean;	
 	}
+	
+	/********************** Variables Privadas **********************/
+	@Autowired
+	private IViajeDao viajeDao;
+	@Autowired
+	private IUserDao usuarioDao;
+	@Autowired
+	private IColectivoDao colectivoDao;
+	@Autowired
+	private IRecorridoDao recorridoDao;
 
 }

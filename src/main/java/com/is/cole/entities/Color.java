@@ -8,8 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "roles")
-public class Roles implements BaseBean {
+@Table(name = "colores")
+public class Color implements BaseBean {
 
 	private static final long serialVersionUID = 1L;
 
@@ -20,8 +20,6 @@ public class Roles implements BaseBean {
 
 	@Column(nullable = false, unique = true)
 	private String nombre;
-
-	private String description;
 
 	public Integer getId() {
 		return id;
@@ -35,16 +33,8 @@ public class Roles implements BaseBean {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
+	public void setNombre(String color) {
+		this.nombre = color;
 	}
 
 }

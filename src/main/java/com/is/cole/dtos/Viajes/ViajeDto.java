@@ -2,6 +2,10 @@ package com.is.cole.dtos.Viajes;
 
 import com.is.cole.dtos.BaseDto;
 
+/**
+ * Dto que representa un viaje de un colectivo
+ * @author Colectuber
+ */
 public class ViajeDto extends BaseDto{
 
 	private static final long serialVersionUID = 1L;

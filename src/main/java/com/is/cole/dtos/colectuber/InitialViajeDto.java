@@ -4,6 +4,10 @@ import com.is.cole.dtos.BaseDto;
 import com.is.cole.dtos.colectivos.ColectivoDto;
 import com.is.cole.dtos.recorridos.RecorridoDto;
 
+/**
+ * Dto para representar un viaje de un colectivo
+ * @author Colectuber
+ */
 public class InitialViajeDto extends BaseDto{
 
 	private static final long serialVersionUID = 1L;

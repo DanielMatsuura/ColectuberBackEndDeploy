@@ -28,57 +28,55 @@ import com.is.cole.services.recorridos.IRecorridoService;
 import com.is.cole.services.usuarios.IUsuariosService;
 import com.is.cole.services.viajes.IViajesService;
 
+/**
+ * Servicios principales de la aplicacion para devolver y obtener los datos principales a la web y 
+ * a la app 
+ * @author Colectuber
+ */
 @Service
 public class ColectuberServiceImpl implements IColectuberService {
-
-	@Autowired
-	private IColectivoUbicacionDao colectivoUbicacionDao;
-	@Autowired
-	private IColectivoDao colectivoDao;
-	@Autowired
-	private IColectivoService colectivoService;
-	@Autowired
-	private IParadaService paradaService;
-	@Autowired
-	private IRecorridoService recorridoService;
-	@Autowired
-	private IRecorridoDao recorridoDao;
-	@Autowired
-	private IViajesService viajeService;
-	@Autowired
-	private IEmpresaColectivosService empresaService;
-	@Autowired
-	private ILineaColectivosService lineaService;
-	@Autowired
-	private IUsuariosService usuarioService;
-
+	
+	/**
+	 * Se obtiene los datos iniciales: colectivos, colectivos ubicacion, paradas
+	 * y recorridos y se devuelve en un dto
+	 */
 	@Override
 	@Transactional
 	public InitialDataDto getInitialData() {
 
 		InitialDataDto dto = new InitialDataDto();
 
+		//Se obtiene todos los colectivos
 		dto.setColectivos(colectivoService.getAllColectivo().getResult().stream()
 				.map(c -> parseColectivoDtoToDtoColectuberDto(c)).collect(Collectors.toList()));
 
+		//Se obtiene todas las paradas
 		dto.setParadas(paradaService.getAllParadas().getResult());
 
+		//Se obtiene todos los recorridos
 		dto.setRecorridos(recorridoService.getAllRecorrido().getResult());
-
+		
+		//Se obtiene todas las ubicaciones de los colectivo
 		dto.setColectivoUbicacion(getColectivosUbicacion().getResult());
 
 		return dto;
 	}
-
+	
+	/**
+	 * Se guarda un colectivo ubicacion, por medio del username del chofer
+	 */
 	@Override
 	@Transactional
 	public void postColectivoUbicacion(ColectivoUbicacionDto dto,String username) {
 		
+		//Se obtiene el viaje correspondiente al chofer
 		UsuarioDto user= usuarioService.getUsuarioByCorreo(username);
 		ViajeDto viaje = viajeService.getByChoferIdViaje(user.getId());
 	
+		//Se obtiene el indice y porcentaje actual del colectivo con respecto al recorrido
 		double indicePorcentaje = getIndicePorcentajeFromPoint(recorridoService.getRecorrido(viaje.getRecorrido_id()), dto.getPosicionColectivo());
 		
+		//Se crea y almacena la ubicacion
 		ColectivoUbicacionDto dtoNuevo= new ColectivoUbicacionDto();
 		dtoNuevo.setColectivoId(viaje.getColectivo_id());
 		dtoNuevo.setChofer_id(user.getId());
@@ -91,6 +89,9 @@ public class ColectuberServiceImpl implements IColectuberService {
 		colectivoUbicacionDao.save(ubi);
 	}
 
+	/**
+	 * Se obtiene todos las ubicaciones de los colectivos
+	 */
 	@Override
 	@Transactional
 	public Result<ColectivoUbicacionDto> getColectivosUbicacion() {
@@ -104,7 +105,10 @@ public class ColectuberServiceImpl implements IColectuberService {
 
 		return dtos;
 	}
-
+	
+	/**
+	 * Se obtiene un chofer por medio del username
+	 */
 	@Override
 	@Transactional
 	public UsuarioChoferDto getChofer(String choferUsername) {
@@ -118,7 +122,10 @@ public class ColectuberServiceImpl implements IColectuberService {
 
 		return dto;
 	}
-
+	
+	/**
+	 * Se obtiene el viaje por medio el username del chofer
+	 */
 	@Override
 	@Transactional
 	public InitialViajeDto getViaje(String choferUsername) {
@@ -134,9 +141,16 @@ public class ColectuberServiceImpl implements IColectuberService {
 	}
 
 	/****************************** Special Functions *************************************/
+	
+	/**
+	 * Se obtiene en una variable el indice y porcentaje actual de un punto de posicion en un recorrido
+	 * @param recorrido
+	 * @param punto
+	 * @return
+	 */
 	private Double getIndicePorcentajeFromPoint(RecorridoDto recorrido, PosicionDto punto) {
 
-		// Calcular la linea mas cercana al punto
+		// Calcula la linea mas cercana al punto
 		Integer indice = null;
 		PosicionDto puntoR = null;
 
@@ -160,7 +174,7 @@ public class ColectuberServiceImpl implements IColectuberService {
 			}
 		}
 
-		// Pasar a indece porcentaje
+		// Pasa a indice porcentaje
 
 		PosicionDto posIndice = recorrido.getPuntos().get(indice).getPuntoPosicion();
 		PosicionDto posIndiceSig = recorrido.getPuntos().get(indice + 1).getPuntoPosicion();
@@ -175,6 +189,12 @@ public class ColectuberServiceImpl implements IColectuberService {
 		return indicePorcentaje;
 	}
 
+	/**
+	 * Se calcula la distancia de un punto a otro punto
+	 * @param punto1
+	 * @param punto2
+	 * @return
+	 */
 	private Double distancePointToPoint(PosicionDto punto1, PosicionDto punto2) {
 		double resultado;
 		double x1, y1, x2, y2;
@@ -192,8 +212,15 @@ public class ColectuberServiceImpl implements IColectuberService {
 		return resultado;
 	}
 
-	// Quitamos la formula de este post
-	// https://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
+	/**
+	 * Interseccion de un punto con una linea 
+	 * Quitamos la formula de este post
+	 * https://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
+	 * @param punto
+	 * @param rectaPunto1
+	 * @param rectaPunto2
+	 * @return
+	 */
 	private PosicionDto intersectionPointToLine(PosicionDto punto, PosicionDto rectaPunto1, PosicionDto rectaPunto2) {
 
 		double x, y, x1, y1, x2, y2;
@@ -236,8 +263,6 @@ public class ColectuberServiceImpl implements IColectuberService {
 		return resultado;
 	}
 
-	
-	
 	
 	/********************************Parses**************************************************/
   
@@ -285,14 +310,26 @@ public class ColectuberServiceImpl implements IColectuberService {
 
 	}
 
-	private UsuarioChoferDto parseDtoToDtoUsuarioChofer(UsuarioDto usuarioDto) {
-		UsuarioChoferDto dto = new UsuarioChoferDto();
-		dto.setId(usuarioDto.getId());
-		dto.setApellido(usuarioDto.getApellido());
-		dto.setCorreo_electronico(usuarioDto.getCorreo_electronico());
-		dto.setNombre(usuarioDto.getNombre());
-
-		return dto;
-	}
+	/******************************** Variable Privadas **************************************************/
+	@Autowired
+	private IColectivoUbicacionDao colectivoUbicacionDao;
+	@Autowired
+	private IColectivoDao colectivoDao;
+	@Autowired
+	private IColectivoService colectivoService;
+	@Autowired
+	private IParadaService paradaService;
+	@Autowired
+	private IRecorridoService recorridoService;
+	@Autowired
+	private IRecorridoDao recorridoDao;
+	@Autowired
+	private IViajesService viajeService;
+	@Autowired
+	private IEmpresaColectivosService empresaService;
+	@Autowired
+	private ILineaColectivosService lineaService;
+	@Autowired
+	private IUsuariosService usuarioService;
 
 }

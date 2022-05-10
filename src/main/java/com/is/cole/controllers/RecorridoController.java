@@ -17,14 +17,20 @@ import com.is.cole.dtos.Result;
 import com.is.cole.dtos.recorridos.RecorridoDto;
 import com.is.cole.services.recorridos.IRecorridoService;
 
+/**
+ * Controlador para el servicio de recorrido de un colectivo
+ * @author Colectuber
+ */
 @RestController
 @RequestMapping("/api/recorridos")
 @Secured("ROLE_ADMIN")
 public class RecorridoController {
 
-	@Autowired
-	private IRecorridoService recorridoService;
-
+	/**
+	 * Save y Update de un recorrido
+	 * @param dto
+	 * @return
+	 */
 	@PostMapping
 	public ResponseEntity<?> postRecorrido(@RequestBody RecorridoDto dto) {
 		try {
@@ -36,7 +42,12 @@ public class RecorridoController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
+	
+	/**
+	 * Se obtiene un recorrido por el id 
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getRecorrido(@PathVariable("id") Integer id) {
 		try {
@@ -48,7 +59,11 @@ public class RecorridoController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
+	
+	/**
+	 * Se obtiene todos los recorridos
+	 * @return
+	 */
 	@GetMapping
 	public ResponseEntity<?> getAllRecorridos() {
 		try {
@@ -58,7 +73,12 @@ public class RecorridoController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
+	
+	/**
+	 * Se elimina un recorrido por su id 
+	 * @param id
+	 * @return
+	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteRecorrido(@PathVariable("id") Integer id) {
 		try {
@@ -70,5 +90,8 @@ public class RecorridoController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+	
+	@Autowired
+	private IRecorridoService recorridoService;
 
 }

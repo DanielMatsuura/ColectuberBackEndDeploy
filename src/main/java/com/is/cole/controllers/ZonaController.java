@@ -14,23 +14,27 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.is.cole.dtos.Result;
-import com.is.cole.dtos.colectivos.EmpresaDeColectivosDto;
-import com.is.cole.services.empresaColectivos.IEmpresaColectivosService;
+import com.is.cole.dtos.zonas.ZonaDto;
+import com.is.cole.services.zonas.IZonaService;
 
+/**
+ * Controlador para la zona de parada de colectivos
+ * @author Colectuber
+ */
 @RestController
-@RequestMapping("/api/empresas_colectivos")
+@RequestMapping("api/zonas")
 @Secured("ROLE_ADMIN")
-public class EmpresaDeColectivosController {
-
+public class ZonaController {
+	
 	/**
-	 * Agrega una nueva empresa de Colectivo
+	 * Agrega una nueva zona
 	 * @param dto
 	 * @return
 	 */
 	@PostMapping
-	public ResponseEntity<?> saveEmpresaColectivo(@RequestBody EmpresaDeColectivosDto dto) {
+	public ResponseEntity<?> saveZona(@RequestBody ZonaDto dto) {
 		try {
-			EmpresaDeColectivosDto dtoGuardado = empresaService.saveEmpresaColectivo(dto);
+			ZonaDto dtoGuardado = zonaService.saveZona(dto);
 			return ResponseEntity.status(HttpStatus.OK).body(dtoGuardado);
 		} catch (IllegalArgumentException e) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -40,14 +44,14 @@ public class EmpresaDeColectivosController {
 	}
 
 	/**
-	 * Obtiene una nueva empresa de colectivo por medio de un identificador
-	 * @param empresaId
+	 * Obtiene una zona por medio de su id
+	 * @param zonaId
 	 * @return
 	 */
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getEmpresaColectivo(@PathVariable("id") Integer empresaId) {
+	public ResponseEntity<?> getByIdZona(@PathVariable("id") Integer zonaId) {
 		try {
-			EmpresaDeColectivosDto dtoObtenido = empresaService.getEmpresaColectivo(empresaId);
+			ZonaDto dtoObtenido = zonaService.getByIdZona(zonaId);
 			return ResponseEntity.status(HttpStatus.OK).body(dtoObtenido);
 		} catch (EntityNotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -57,13 +61,13 @@ public class EmpresaDeColectivosController {
 	}
 
 	/**
-	 * Obtiene todas las empresas de colectivo
+	 * Obtiene todas las zonas 
 	 * @return
 	 */
 	@GetMapping
-	public ResponseEntity<?> getAllEmpresaColectivo() {
+	public ResponseEntity<?> getAllZonas() {
 		try {
-			Result<EmpresaDeColectivosDto> dtos = empresaService.getAllEmpresaColectivo();
+			Result<ZonaDto> dtos = zonaService.getAllZonas();
 			return ResponseEntity.status(HttpStatus.OK).body(dtos);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -71,14 +75,14 @@ public class EmpresaDeColectivosController {
 	}
 
 	/**
-	 * Elimina una empresa de colectivo por medio de un identificador
-	 * @param empresaId
+	 * Elimina una zona por medio de su id
+	 * @param zonaId
 	 * @return
 	 */
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> deleteEmpresaColectivo(@PathVariable("id") Integer empresaId) {
+	public ResponseEntity<?> deleteZona(@PathVariable("id") Integer zonaId) {
 		try {
-			empresaService.deleteEmpresaColectivo(empresaId);
+			zonaService.deleteZona(zonaId);
 			return ResponseEntity.status(HttpStatus.OK).build();
 		} catch (EntityNotFoundException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
@@ -87,7 +91,8 @@ public class EmpresaDeColectivosController {
 		}
 	}
 	
+	/********************** Variables Privadas **********************/
+	
 	@Autowired
-	private IEmpresaColectivosService empresaService;
-
+	private IZonaService zonaService;
 }

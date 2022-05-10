@@ -2,6 +2,10 @@ package com.is.cole.dtos.colectuber;
 
 import com.is.cole.dtos.BaseDto;
 
+/**
+ * Dto que representa a un usuario chofer
+ * @author Acer
+ */
 public class UsuarioChoferDto extends BaseDto{
 
 	private static final long serialVersionUID = 1L;

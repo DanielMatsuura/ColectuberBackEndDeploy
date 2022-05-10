@@ -26,7 +26,7 @@ public class Usuarios implements BaseBean {
 	private String correo;
 	
 	private String password;
-
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -67,5 +67,6 @@ public class Usuarios implements BaseBean {
 		this.id = id;
 	}
 	
+
 	
 }

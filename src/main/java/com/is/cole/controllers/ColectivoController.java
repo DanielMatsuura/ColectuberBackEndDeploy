@@ -23,10 +23,11 @@ import com.is.cole.services.colectivos.IColectivoService;
 @Secured("ROLE_ADMIN")
 public class ColectivoController {
 	
-	@Autowired
-	private IColectivoService colectivoService;
-	
-
+	/**
+	 * Agrega un Colectivo nuevo
+	 * @param dto
+	 * @return
+	 */
 	@PostMapping
 	public ResponseEntity<?> saveColectivo(@RequestBody ColectivoDto dto){
 		try {
@@ -39,6 +40,11 @@ public class ColectivoController {
 		}
 	}
 	
+	/**
+	 * Obtener un colectivo por medio de su identificador
+	 * @param colectivoId
+	 * @return
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getColectivo(@PathVariable("id") Integer colectivoId){
 		try {
@@ -51,6 +57,10 @@ public class ColectivoController {
 		}
 	}
 	
+	/**
+	 * Obtener todos los colectivos
+	 * @return
+	 */
 	@GetMapping
 	public ResponseEntity<?> getAllColectivo(){
 		try {
@@ -61,6 +71,11 @@ public class ColectivoController {
 		}
 	}
 	
+	/**
+	 * Eliminar un colectivo por medio de su identificador
+	 * @param colectivoId
+	 * @return
+	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteColectivo(@PathVariable("id") Integer colectivoId){
 		try {
@@ -72,5 +87,9 @@ public class ColectivoController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+	
+	@Autowired
+	private IColectivoService colectivoService;
+	
 	
 }

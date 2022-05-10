@@ -5,6 +5,10 @@ import com.is.cole.dtos.BaseDto;
 import com.is.cole.dtos.paradas.ParadaDto;
 import com.is.cole.dtos.recorridos.RecorridoDto;
 
+/**
+ * Dto para representar los datos iniciales que requiere la web 
+ * @author Colectuber
+ */
 public class InitialDataDto extends BaseDto{
 
 	private static final long serialVersionUID = 1L;

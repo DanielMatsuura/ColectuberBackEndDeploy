@@ -17,14 +17,20 @@ import com.is.cole.dtos.Result;
 import com.is.cole.dtos.Viajes.ViajeDto;
 import com.is.cole.services.viajes.IViajesService;
 
+/**
+ * Controlador para el servicio de los viajes
+ * @author Colectuber
+ */
 @RestController
 @RequestMapping("api/viajes")
 @Secured("ROLE_ADMIN")
 public class ViajeController {
 
-	@Autowired
-	private IViajesService viajeService;
-
+	/**
+	 * Save y Update de un viaje
+	 * @param dto
+	 * @return
+	 */
 	@PostMapping
 	public ResponseEntity<?> postViaje(@RequestBody ViajeDto dto) {
 		try {
@@ -36,7 +42,12 @@ public class ViajeController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
+	
+	/**
+	 * Se obtiene un viaje por id
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getViaje(@PathVariable("id") Integer id) {
 		try {
@@ -48,7 +59,12 @@ public class ViajeController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
+	
+	/**
+	 * Se obtiene un viaje por el chofer id
+	 * @param choferId
+	 * @return
+	 */
 	@GetMapping("/chofer/{id}")
 	public ResponseEntity<?> getChoferViaje(@PathVariable("id") Integer choferId) {
 		try {
@@ -60,17 +76,26 @@ public class ViajeController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
+	
+	/**
+	 * Se obtiene todos los viajes 
+	 * @return
+	 */
 	@GetMapping
-	public ResponseEntity<?> getAllViaje() {
+	public ResponseEntity<?> getAllViajes() {
 		try {
-			Result<ViajeDto> dtos = viajeService.getAllViaje();
+			Result<ViajeDto> dtos = viajeService.getAllViajes();
 			return ResponseEntity.status(HttpStatus.OK).body(dtos);
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
+	
+	/**
+	 * Se elimina un viaje por medio de su id 
+	 * @param id
+	 * @return
+	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteViaje(@PathVariable("id") Integer id) {
 		try {
@@ -82,5 +107,8 @@ public class ViajeController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+	
+	@Autowired
+	private IViajesService viajeService;
 
 }

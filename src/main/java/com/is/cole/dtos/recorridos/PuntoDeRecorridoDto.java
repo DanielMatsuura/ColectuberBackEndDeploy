@@ -3,6 +3,10 @@ package com.is.cole.dtos.recorridos;
 import com.is.cole.dtos.BaseDto;
 import com.is.cole.dtos.PosicionDto;
 
+/**
+ * Dto que representa un punto de un recorrido
+ * @author Colectuber
+ */
 public class PuntoDeRecorridoDto extends BaseDto{
 
 	private static final long serialVersionUID = 1L;

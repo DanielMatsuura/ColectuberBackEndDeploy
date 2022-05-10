@@ -1,5 +1,9 @@
 package com.is.cole.dtos;
 
+/**
+ * Dto utilizado para representar la latitud y longitud
+ * @author Colectuber
+ */
 public class PosicionDto extends BaseDto{
 	private static final long serialVersionUID = 1L;
 	

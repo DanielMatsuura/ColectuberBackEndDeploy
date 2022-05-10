@@ -3,6 +3,10 @@ package com.is.cole.dtos.colectuber;
 import com.is.cole.dtos.BaseDto;
 import com.is.cole.dtos.PosicionDto;
 
+/**
+ * Dto para la ubicacion de un colectivo
+ * @author Colectuber
+ */
 public class ColectivoUbicacionDto extends BaseDto{
 	private static final long serialVersionUID = 1L;
 	

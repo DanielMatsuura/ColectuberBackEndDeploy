@@ -9,7 +9,7 @@ public interface IViajesService{
 	public ViajeDto saveViaje(ViajeDto dto);
 	public void deleteViaje(Integer id);
 	public ViajeDto getViaje(Integer id);
-	public Result<ViajeDto> getAllViaje();
+	public Result<ViajeDto> getAllViajes();
 	
 	//Funciones especificas
 	public ViajeDto getByChoferIdViaje(Integer id);

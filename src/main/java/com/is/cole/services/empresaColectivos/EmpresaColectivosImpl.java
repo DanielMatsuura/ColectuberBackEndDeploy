@@ -12,15 +12,10 @@ import com.is.cole.dtos.colectivos.EmpresaDeColectivosDto;
 import com.is.cole.entities.EmpresaDeColectivos;
 
 @Service
-public class EmpresaColectivosImpl implements IEmpresaColectivosService{
+public class EmpresaColectivosImpl implements IEmpresaColectivosService {
 
-	
-	@Autowired
-	private IEmpresaDeColectivosDao empresaDao;
-	
-	
-	//Metodos
-	
+	// Metodos
+
 	@Override
 	@Transactional
 	public EmpresaDeColectivosDto saveEmpresaColectivo(EmpresaDeColectivosDto dto) {
@@ -31,7 +26,7 @@ public class EmpresaColectivosImpl implements IEmpresaColectivosService{
 	@Override
 	@Transactional
 	public EmpresaDeColectivosDto getEmpresaColectivo(Integer empresaId) {
-		EmpresaDeColectivos beanObtenido= empresaDao.getById(empresaId);
+		EmpresaDeColectivos beanObtenido = empresaDao.getById(empresaId);
 		return parseBeanToDtoEmpresaColectivo(beanObtenido);
 	}
 
@@ -39,24 +34,27 @@ public class EmpresaColectivosImpl implements IEmpresaColectivosService{
 	@Transactional
 	public void deleteEmpresaColectivo(Integer empresaId) {
 		empresaDao.deleteById(empresaId);
-		
+
 	}
 
 	@Override
 	@Transactional
 	public Result<EmpresaDeColectivosDto> getAllEmpresaColectivo() {
 		Result<EmpresaDeColectivosDto> dtos = new Result<>();
-		
-		dtos.setResult(
-			empresaDao.findAll().stream()
-			.map(ec -> parseBeanToDtoEmpresaColectivo(ec))
-			.collect(Collectors.toList())
-		);
+
+		dtos.setResult(empresaDao.findAll().stream().map(ec -> parseBeanToDtoEmpresaColectivo(ec))
+				.collect(Collectors.toList()));
 		return dtos;
 	}
-	
-	//Parses
-	
+
+	// Parses
+
+	/**
+	 * Convierte de Bean a dto la entidad Empresa de Colectivo
+	 * 
+	 * @param bean
+	 * @return
+	 */
 	private EmpresaDeColectivosDto parseBeanToDtoEmpresaColectivo(EmpresaDeColectivos bean) {
 		EmpresaDeColectivosDto dto = new EmpresaDeColectivosDto();
 		dto.setCorreo_electronico(bean.getCorreo());
@@ -64,10 +62,16 @@ public class EmpresaColectivosImpl implements IEmpresaColectivosService{
 		dto.setNombre(bean.getNombre());
 		dto.setNumero_telefono(bean.getNum_telefono());
 		dto.setId(bean.getId());
-		
+
 		return dto;
 	}
-	
+
+	/**
+	 * Convierte de Dto a Bean la entidad empresa de colectivo
+	 * 
+	 * @param dto
+	 * @return
+	 */
 	private EmpresaDeColectivos parseDtoToBeanEmpresaColectivo(EmpresaDeColectivosDto dto) {
 		EmpresaDeColectivos bean = new EmpresaDeColectivos();
 		bean.setId(dto.getId());
@@ -75,7 +79,11 @@ public class EmpresaColectivosImpl implements IEmpresaColectivosService{
 		bean.setDireccion(dto.getDireccion());
 		bean.setNombre(dto.getNombre());
 		bean.setNum_telefono(dto.getNumero_telefono());
-		
+
 		return bean;
 	}
+
+	@Autowired
+	private IEmpresaDeColectivosDao empresaDao;
+
 }

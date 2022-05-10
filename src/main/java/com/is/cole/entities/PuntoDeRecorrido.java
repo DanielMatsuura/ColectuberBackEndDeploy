@@ -13,6 +13,11 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+/**
+ * Entidad para referenciar un punto de un recorrido con el siguiente punto
+ * del recorrido
+ * @author Colectuber
+ */
 @Entity
 @Table(name="puntos_recorrido")
 public class PuntoDeRecorrido implements BaseBean{
@@ -35,7 +40,6 @@ public class PuntoDeRecorrido implements BaseBean{
 	
 	private Double latitud;
 	private Double longitud;
-	
 	
 	public Integer getId() {
 		return id;

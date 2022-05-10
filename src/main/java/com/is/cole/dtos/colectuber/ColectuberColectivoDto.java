@@ -2,6 +2,10 @@ package com.is.cole.dtos.colectuber;
 
 import com.is.cole.dtos.BaseDto;
 
+/**
+ * Dto para representar un colectivo con sus datos completos
+ * @author Colectuber
+ */
 public class ColectuberColectivoDto extends BaseDto{
 
 	private static final long serialVersionUID = 1L;

@@ -13,6 +13,10 @@ import javax.persistence.UniqueConstraint;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+/**
+ * Entidad que se utiliza para asignar a un chofer un colectivo y un recorrido
+ * @author Colectuber
+ */
 @Entity
 @Table(name="viajes",uniqueConstraints= {
 		@UniqueConstraint(name="uk_usuario",columnNames = {"usuario_id"}),
@@ -46,6 +50,7 @@ public class Viaje implements BaseBean{
 	
 	private Boolean terminado;
 
+	
 	public Integer getId() {
 		return id;
 	}

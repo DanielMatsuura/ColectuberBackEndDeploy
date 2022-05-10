@@ -9,13 +9,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.is.cole.services.test.ITestService;
 
+/**
+ * Controller para la inserccion de datos de prueba a la base de datos
+ * @author Colectuber
+ */
 @RestController
 @RequestMapping("/api/test")
 public class TestController {
 
-	@Autowired
-	private ITestService testService;
-
+	/**
+	 * Se Inserta todos los datos de prueba a la base de datos
+	 * @return
+	 */
 	@PostMapping("/values")
 	public ResponseEntity<?> postTestValues() {
 		try {
@@ -28,5 +33,8 @@ public class TestController {
 		}
 
 	}
+	
+	@Autowired
+	private ITestService testService;
 
 }

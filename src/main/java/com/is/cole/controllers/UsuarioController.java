@@ -24,11 +24,13 @@ import com.is.cole.services.usuarios.IUsuariosService;
 @Secured("ROLE_ADMIN")
 public class UsuarioController {
 
-	@Autowired
-	private IUsuariosService usuariosService;
-
 	/****************************** Usuarios *************************************/
 
+	/**
+	 * Introducir nuevo Usuario
+	 * @param dto
+	 * @return
+	 */
 	@PostMapping
 	public ResponseEntity<?> postUsuario(@RequestBody UsuarioDto dto) {
 		try {
@@ -41,6 +43,11 @@ public class UsuarioController {
 		}
 	}
 
+	/**
+	 * Obtener usuario por medio del indentificador
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getUsuario(@PathVariable(value = "id") Integer id) {
 		try {
@@ -53,6 +60,10 @@ public class UsuarioController {
 		}
 	}
 
+	/**
+	 * Obtener todos los Usuarios
+	 * @return
+	 */
 	@GetMapping
 	public ResponseEntity<?> getAllUsuario() {
 		try {
@@ -63,6 +74,11 @@ public class UsuarioController {
 		}
 	}
 
+	/**
+	 * Eliminar un Usuario por medio del identificador
+	 * @param id
+	 * @return
+	 */
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> deleteUsuario(@PathVariable(value = "id") Integer id) {
 		try {
@@ -77,6 +93,11 @@ public class UsuarioController {
 
 	/*************************** Roles ******************************************/
 
+	/**
+	 * Agregar un nuevo Role
+	 * @param role
+	 * @return
+	 */
 	@PostMapping("/roles")
 	public ResponseEntity<?> create(@RequestBody RoleDto role) {
 		try {
@@ -89,6 +110,11 @@ public class UsuarioController {
 		}
 	}
 
+	/**
+	 * Obtener un role por medio de un identificador
+	 * @param id
+	 * @return
+	 */
 	@GetMapping("/roles/{id}")
 	public ResponseEntity<?> getRole(@PathVariable("id") Integer id) {
 		try {
@@ -101,6 +127,10 @@ public class UsuarioController {
 		}
 	}
 
+	/**
+	 * Obtener todos los roles
+	 * @return
+	 */
 	@GetMapping("/roles")
 	public ResponseEntity<?> getAllRole() {
 		try {
@@ -111,6 +141,11 @@ public class UsuarioController {
 		}
 	}
 
+	/**
+	 * Eliminar un role por medio del identificador
+	 * @param id
+	 * @return
+	 */
 	@DeleteMapping("/roles/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
 		try {
@@ -123,6 +158,12 @@ public class UsuarioController {
 		}
 	}
 
+	/**
+	 * Agrega un Rol a Usuario
+	 * @param userId
+	 * @param dto
+	 * @return
+	 */
 	@PostMapping("/rol_usuario/{user_id}")
 	public ResponseEntity<?> agregarRolAUsuario(@PathVariable("user_id") Integer userId, @RequestBody RoleDto dto) {
 		try {
@@ -141,6 +182,12 @@ public class UsuarioController {
 		}
 	}
 
+	/**
+	 * Elimina un rol a usuario
+	 * @param userId
+	 * @param dto
+	 * @return
+	 */
 	@DeleteMapping("/rol_usuario/{user_id}")
 	public ResponseEntity<?> sacarRolAUsuario(@PathVariable("user_id") Integer userId, @RequestBody RoleDto dto) {
 		try {
@@ -158,5 +205,8 @@ public class UsuarioController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+	
+	@Autowired
+	private IUsuariosService usuariosService;
 
 }

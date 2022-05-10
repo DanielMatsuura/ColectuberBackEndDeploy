@@ -4,6 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Entidad obtenida de un usuario para realizar la autenticacion  
+ * @author Colectuber
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
